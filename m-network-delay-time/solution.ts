@@ -74,9 +74,12 @@ class MinPriorityQueue<T> {
  * As we saw in Advanced Algorithms and Data Structures, in d-heary heps chapter (2.8) Most use cases, we made use of a MinPriorityQueue
  * to implement Dijkstra's algorithm. Here we will use it again to solve this problem.
  * The idea is to use a priority queue to explore the graph in order of increasing travel time.
- * We start from the starting node k and add all its neighbors to the priority queue with their respective travel times. Then, we repeatedly extract the node with the smallest travel time from the priority queue, mark it as visited, and add its unvisited neighbors to the priority queue with their cumulative travel times.
+ * We start from the starting node k and add all its neighbors to the priority queue with their respective travel times. 
+ * Then, we repeatedly extract the node with the smallest travel time from the priority queue, mark it as visited,
+ *  and add its unvisited neighbors to the priority queue with their cumulative travel times.
  * We continue this process until we have visited all nodes or the priority queue is empty.
- * If we have visited all nodes, the maximum travel time among the visited nodes is the answer. If not, it means that some nodes are unreachable from the starting node, and we return -1.
+ * If we have visited all nodes, the maximum travel time among the visited nodes is the answer.
+ *  If not, it means that some nodes are unreachable from the starting node, and we return -1.
  **/
 function networkDelayTime(times: number[][], n: number, k: number): number {
     const adjGraph: Array<[number,number]>[] = Array.from({ length: n }, () => []) 
