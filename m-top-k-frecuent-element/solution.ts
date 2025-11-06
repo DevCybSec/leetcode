@@ -22,3 +22,39 @@ function topKFrequent(nums: number[], k: number): number[] {
 
     return result;
 };
+
+function topKFrequentBucketSort(nums: number[], k: number): number[] {
+    const frequencyMap: Map<number, number> = new Map();
+    
+
+    const buckets: number[][] = Array(nums.length + 1).fill(null).map(() => []);
+    const result: number[] = [];
+
+    // 1. Conteo de Frecuencias: O(n)
+    for (const num of nums) {
+        frequencyMap.set(num, (frequencyMap.get(num) || 0) + 1);
+    }
+
+    // 2. Colocación en Cubetas: O(m)
+    // m = número de elementos únicos (m <= n)
+    for (const [num, frequency] of frequencyMap) {
+        // Colocamos el número en la cubeta correspondiente a su frecuencia.
+        buckets[frequency].push(num);
+    }
+
+    // 3. Extracción de los Top K: O(n) en el peor caso
+    // Iteramos las cubetas de mayor a menor frecuencia.
+    // El índice 'i' representa la frecuencia.
+    for (let i = buckets.length - 1; i >= 1 && result.length < k; i--) {
+        // Si la cubeta en la frecuencia 'i' tiene números, los añadimos al resultado.
+        if (buckets[i].length > 0) {
+            for (const num of buckets[i]) {
+                if (result.length < k) {
+                    result.push(num);
+                }
+            }
+        }
+    }
+
+    return result;
+};
